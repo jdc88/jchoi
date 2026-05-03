@@ -24,6 +24,17 @@ type ShootingStar = {
   left: string;
 };
 
+type ProjectCard = {
+  name: string;
+  /** Hackathon / venue line shown under the project title */
+  eventLine?: string;
+  description: string;
+  imageUrl: string;
+  githubUrl: string;
+  liveUrl: string;
+  techStack: string[];
+};
+
 function createInitialStars(): Star[] {
   return Array.from({ length: 50 }, (_, i) => ({
     id: i,
@@ -73,8 +84,9 @@ const experiences = [
 const projects = [
   {
     name: "EcoPrompt",
+    eventLine: "FullyHacks 2026 ✦ CSUF",
     description:
-      "Built w/ two teammates for FullyHacks 2026! Sustainable prompt optimization website with a multi-stage LLM rewrite pipeline, local inference, and retrieval-backed evaluation.",
+      "EcoPrompt uses multistage LLM rewrites, local inference, and retrieval backed evaluation so users can tune prompts with less waste.",
     imageUrl: "/demoecoprompt.png",
     githubUrl: "https://github.com/jdc88/project-1",
     liveUrl: "https://example.com/project-1",
@@ -89,28 +101,49 @@ const projects = [
     ],
   },
   {
-    name: "Project 2",
-    description: "This is a description of Project 2.",
-    imageUrl: "/globe.svg",
+    name: "Bio-Symphony",
+    eventLine: "Google DeepMind Gemini API Hackathon ✦ UCLA",
+    description:
+      "Bio Symphony turns webcam pose into sound with MediaPipe and Tone.js, plus beds from text prompts with Lyria via Gemini. Next.js, TypeScript, and Tailwind.",
+    imageUrl: "/biosymphony.png",
     githubUrl: "https://github.com/jdc88/project-2",
     liveUrl: "https://example.com/project-2",
-    techStack: ["Next.js", "Node.js", "PostgreSQL"],
+    techStack: [
+      "Next.js 16 (App Router)",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "MediaPipe Tasks Vision",
+      "Google Gemini / Lyria (@google/genai)",
+      "Tone.js",
+    ],
   },
   {
-    name: "Project 3",
-    description: "This is a description of Project 3.",
-    imageUrl: "/globe.svg",
+    name: "ColorMe",
+    description:
+      "Seasonal style color guidance for skin tone. Vanilla JS with Flask, JWT, and saved analyses, NumPy rules, and photo sampling with sklearn KMeans, OpenCV, and Pillow.",
+    imageUrl: "/ColorMedemo.png",
     githubUrl: "https://github.com/jdc88/project-3",
     liveUrl: "https://example.com/project-3",
-    techStack: ["Python", "FastAPI", "OpenAI API"],
+    techStack: [
+      "Python / Flask",
+      "HTML, CSS, JavaScript",
+      "NumPy & colorsys",
+      "12-season (rule-based)",
+      "scikit-learn (K-means)",
+      "OpenCV & Pillow",
+      "JWT (PyJWT) & Werkzeug",
+      "Express (optional)",
+    ],
   },
   {
-    name: "Project 4",
-    description: "This is a description of Project 4.",
-    imageUrl: "/globe.svg",
+    name: "Nuri",
+    description:
+      "Skincare shopping with ingredient lists users can control, search and barcode scan, and bookmarks in Core Data. UPCitemdb and a growing ingredient set. Calm UI and AI recommendations planned.",
+    imageUrl: "/Nuridemo.png",
     githubUrl: "https://github.com/jdc88/project-4",
     liveUrl: "https://example.com/project-4",
-    techStack: ["Swift", "Firebase", "UIKit"],
+    techStack: ["Swift / UIKit", "Core Data", "Xcode", "UPCitemdb API", "GitHub"],
   },
   {
     name: "Project 5",
@@ -403,6 +436,11 @@ export default function Home() {
                   />
                 </div>
                 <h3 className="font-museo text-xl font-bold text-[#AADAFF]">{project.name}</h3>
+                {project.eventLine ? (
+                  <p className="font-montserrat mt-1 text-[11px] leading-snug text-[#f5e8a8] md:text-[12px]">
+                    {project.eventLine}
+                  </p>
+                ) : null}
                 <p className="font-montserrat mt-1.5 text-[12px] text-[rgb(209,213,219)] md:text-[14px]">
                   {project.description}
                 </p>
