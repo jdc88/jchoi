@@ -11,9 +11,10 @@ type ProjectCard = {
   techStack: string[];
 };
 
-const projects: ProjectCard[] = [
+/** Full gallery for `/projects` only. Edit `featuredProjects` in `app/page.tsx` separately for the home page. */
+const allProjects: ProjectCard[] = [
   {
-    name: "EcoPrompt",
+    name: "Project 1",
     eventLine: "FullyHacks 2026 · CSUF",
     description:
       "Built with two teammates at FullyHacks. EcoPrompt uses multistage LLM rewrites, local inference, and retrieval backed evaluation so you can tune prompts with less waste.",
@@ -100,7 +101,7 @@ export default function ProjectsPage() {
         </div>
 
         <div className="portfolio-container">
-          {projects.map((project) => (
+          {allProjects.map((project) => (
             <div key={project.name} className="portfolio-box">
               <div className="relative mb-3 h-52 w-full overflow-hidden">
                 <Image

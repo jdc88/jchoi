@@ -35,6 +35,17 @@ type ProjectCard = {
   techStack: string[];
 };
 
+type Experience = {
+  id: number;
+  role: string;
+  company: string;
+  location: string;
+  duration: string;
+  description: string;
+  /** Optional bullet list under the summary paragraph */
+  highlights?: string[];
+};
+
 function createInitialStars(): Star[] {
   return Array.from({ length: 50 }, (_, i) => ({
     id: i,
@@ -53,7 +64,7 @@ const navItems = [
   { id: "experience", label: "Experience" },
 ];
 
-const experiences = [
+const experiences: Experience[] = [
   {
     id: 1,
     role: "Supplemental Instruction (SI) Leader ✦ Calculus I and II",
@@ -65,23 +76,34 @@ const experiences = [
   },
   {
     id: 2,
-    role: "Experience Title 2",
-    company: "Company / Lab 2",
-    location: "Location 2",
-    duration: "Start - End",
-    description: "Add your second experience details here.",
+    role: "NASA L'SPACE Program ✦ CDH and Computer Engineer",
+    company: "NASA L'SPACE Academy with Arizona State University",
+    location: "Remote",
+    duration: "Jan 2025 to Aug 2025 · 8 mos",
+    description:
+      "Two consecutive virtual workforce preparation academies led by NASA experts. NASA Proposal Writing and Evaluation Experience as Computer Engineer (Jan to May 2025, 5 mos). Mission Concept Academy as CDH Engineer (May to Aug 2025, 4 mos).",
+    highlights: [
+      "Ranked top 6 out of 47 proposals in the proposal cycle",
+      "Learned to write and evaluate professional technical proposals against NASA style solicitations and rubrics",
+      "As Computer Engineer: contributed software, data storage, and UI toward a novel monitoring concept, including 3D mapping for situational awareness",
+      "Researched software heritage to strengthen the technical story and align with NASA standards and processes",
+      "Compared architectures and trade studies under cost and schedule constraints",
+      "Designed a rover NavCam concept in Siemens NX CAD for 3D visualization and system validation",
+      "Served as a proposal reviewer on a NASA style panel, scoring submissions and giving structured feedback to teams",
+    ],
   },
-  {
-    id: 3,
-    role: "Experience Title 3",
-    company: "Company / Lab 3",
-    location: "Location 3",
-    duration: "Start - End",
-    description: "Add your third experience details here.",
-  },
+  // {
+  //   id: 3,
+  //   role: "Experience Title 3",
+  //   company: "Company / Lab 3",
+  //   location: "Location 3",
+  //   duration: "Start - End",
+  //   description: "Add your third experience details here.",
+  // },
 ];
 
-const projects = [
+/** Projects shown in the home "Projects" section only. The `/projects` page uses its own list in `app/projects/page.tsx`. */
+const featuredProjects: ProjectCard[] = [
   {
     name: "EcoPrompt",
     eventLine: "FullyHacks 2026 ✦ CSUF",
@@ -145,16 +167,7 @@ const projects = [
     liveUrl: "https://example.com/project-4",
     techStack: ["Swift / UIKit", "Core Data", "Xcode", "UPCitemdb API", "GitHub"],
   },
-  {
-    name: "Project 5",
-    description: "This is a description of Project 5.",
-    imageUrl: "/globe.svg",
-    githubUrl: "https://github.com/jdc88/project-5",
-    liveUrl: "https://example.com/project-5",
-    techStack: ["Java", "Spring Boot", "MySQL"],
-  },
 ];
-const featuredProjects = projects.slice(0, 4);
 
 const socialLinks = {
   github: "https://github.com/jdc88",
@@ -204,6 +217,17 @@ function getBotResponse(input: string) {
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
+  const [expandedExperienceIds, setExpandedExperienceIds] = useState<Set<number>>(
+    () => new Set(),
+  );
+  const toggleExperience = (id: number) => {
+    setExpandedExperienceIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
   const [chatOpen, setChatOpen] = useState(false);
   const [chatInput, setChatInput] = useState("");
   const [stars, setStars] = useState<Star[]>([]);
@@ -496,11 +520,18 @@ export default function Home() {
             Experience
           </h2>
           <div className="timeline">
-            {experiences.map((exp) => (
+            {experiences.map((exp) => {
+              const detailOpen = expandedExperienceIds.has(exp.id);
+              const panelId = `experience-panel-${exp.id}`;
+              const headingId = `experience-heading-${exp.id}`;
+              return (
               <div key={exp.id} className="timeline-item">
                 <div className="timeline-dot" />
                 <div className="timeline-content">
-                  <h3 className="font-museo mb-1.5 text-base font-bold md:text-lg">
+                  <h3
+                    id={headingId}
+                    className="font-museo mb-1.5 text-base font-bold md:text-lg"
+                  >
                     {exp.role}
                   </h3>
                   <h4 className="font-montserrat mb-2 text-[13px] font-semibold text-[#AADAFF] md:text-[14px]">
@@ -510,12 +541,49 @@ export default function Home() {
                     <div className="inline-flex items-center gap-2">{exp.location}</div>
                     <div className="inline-flex items-center gap-2">{exp.duration}</div>
                   </div>
-                  <p className="font-montserrat text-[12px] leading-relaxed md:text-[14px]">
-                    {exp.description}
-                  </p>
+                  <button
+                    type="button"
+                    onClick={() => toggleExperience(exp.id)}
+                    aria-expanded={detailOpen}
+                    aria-controls={panelId}
+                    className="font-montserrat mt-1 inline-flex items-center gap-1.5 rounded-lg py-1 text-[11px] font-semibold text-[#AADAFF] transition hover:text-[#fbeb79] md:text-[12px]"
+                  >
+                    <span>{detailOpen ? "Hide details" : "Show details"}</span>
+                    <svg
+                      className={`h-4 w-4 shrink-0 transition-transform duration-200 ${detailOpen ? "rotate-180" : ""}`}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden
+                    >
+                      <path d="M6 9l6 6 6-6" />
+                    </svg>
+                  </button>
+                  <div
+                    id={panelId}
+                    role="region"
+                    aria-labelledby={headingId}
+                    hidden={!detailOpen}
+                    className="mt-2"
+                  >
+                    <p className="font-montserrat text-[12px] leading-relaxed md:text-[14px]">
+                      {exp.description}
+                    </p>
+                    {exp.highlights?.length ? (
+                      <ul className="font-montserrat mt-2 list-disc space-y-1.5 pl-5 text-[12px] leading-relaxed text-[rgb(209,213,219)] md:mt-3 md:text-[14px]">
+                        {exp.highlights.map((item, i) => (
+                          <li key={`${exp.id}-highlight-${i}`}>{item}</li>
+                        ))}
+                      </ul>
+                    ) : null}
+                  </div>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -526,7 +594,7 @@ export default function Home() {
             Projects
           </h2>
           <div className="portfolio-container">
-            {projects.map((project) => (
+            {featuredProjects.map((project) => (
               <div key={project.name} className="portfolio-box">
                 <div className="mb-4 h-44 w-full rounded-2xl bg-[rgb(30,41,59)]" />
                 <h3 className="font-museo text-xl font-bold">{project.name}</h3>
