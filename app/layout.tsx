@@ -33,6 +33,11 @@ const museo = MuseoModerno({
 export const metadata: Metadata = {
   title: "josephine's portfolio",
   description: "Portfolio website for Josephine Choi",
+  icons: {
+    icon: [{ url: "/JClogo.png", type: "image/png" }],
+    shortcut: "/JClogo.png",
+    apple: "/JClogo.png",
+  },
 };
 
 export default function RootLayout({
