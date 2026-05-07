@@ -165,7 +165,7 @@ const featuredEngineeringProjects: ProjectCard[] = [
     eventLine: "Google DeepMind Gemini API Hackathon 2026 ✦ UCLA",
     description:
       "Interactive web application that uses **MediaPipe** pose tracking to analyze your yoga movements and **Google Lyria** to generate **real-time** instrumental music tailored to the flow and stability of your practice",
-    imageUrl: "/BioSymphony.png",
+    imageUrl: "/biosymphony.png",
     githubUrl: "https://github.com/jdc88/buildwithgeminii",
     liveUrl: "https://www.kaggle.com/competitions/ucla-gemini-api-hackathon/writeups/new-writeup-1774717020439",
     liveLabel: "Kaggle",
