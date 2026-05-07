@@ -1,8 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+
+import { formatInlineBold } from "@/lib/formatInlineBold";
+import {
+  CHAT_QUICK_PILLS,
+  filterChatSuggestions,
+  getPortfolioChatResponse,
+} from "@/lib/portfolioChatbot";
 
 type ChatMessage = {
   text: string;
@@ -30,8 +36,13 @@ type ProjectCard = {
   eventLine?: string;
   description: string;
   imageUrl: string;
-  githubUrl: string;
-  liveUrl: string;
+  githubUrl?: string;
+  liveUrl?: string;
+  /** Custom text for the live/demo button */
+  liveLabel?: string;
+  /** Optional Figma (or second external) link pill */
+  figmaUrl?: string;
+  figmaLabel?: string;
   techStack: string[];
 };
 
@@ -42,12 +53,17 @@ type Experience = {
   location: string;
   duration: string;
   description: string;
+  logoUrl?: string;
+  /** Per-logo fit tuning for the circle frame */
+  logoScale?: number;
+  /** CSS object-position value, e.g. "50% 50%" or "50% 42%" */
+  logoPosition?: string;
   /** Optional bullet list under the summary paragraph */
   highlights?: string[];
 };
 
 function createInitialStars(): Star[] {
-  return Array.from({ length: 50 }, (_, i) => ({
+  return Array.from({ length: 80 }, (_, i) => ({
     id: i,
     width: `${Math.random() * 8 + 1}px`,
     top: `${Math.random() * 100}%`,
@@ -71,8 +87,16 @@ const experiences: Experience[] = [
     company: "California State University, Fullerton",
     location: "Fullerton, CA",
     duration: "Fall 2023 - Present",
+    logoUrl: "/iloveSIlogo.png",
+    logoScale: 0.9,
+    logoPosition: "50% 50%",
     description:
-      "Lead collaborative review sessions and create practice materials to help students build stronger fundamentals in Calculus I and II.",
+      "This role has incredibly enhanced my **communication**, **leadership**, and **problem-solving** skills and my ability to adapt to different **learning styles** and **group dynamics**.",
+    highlights: [
+      "Facilitate weekly peer study sessions for **120+ students** in **Differential and Integral Calculus**, guiding mastery of key concepts, problem-solving strategies, and exam preparation.",
+      "Develop structured, **interactive activities** tailored to **diverse learning styles** to drive group engagement and progress.",
+      "Mentor students to achieve an average **10% grade improvement** through targeted academic support.",
+    ],
   },
   {
     id: 2,
@@ -80,10 +104,13 @@ const experiences: Experience[] = [
     company: "NASA L'SPACE Academy with Arizona State University",
     location: "Remote",
     duration: "Jan 2025 to Aug 2025 · 8 mos",
+    logoUrl: "/lspacelogo.png",
+    logoScale: 0.88,
+    logoPosition: "50% 50%",
     description:
-      "Two consecutive virtual workforce preparation academies led by NASA experts. NASA Proposal Writing and Evaluation Experience as Computer Engineer (Jan to May 2025, 5 mos). Mission Concept Academy as CDH Engineer (May to Aug 2025, 4 mos).",
+      "Two consecutive virtual workforce preparation academies led by **NASA** experts. **Proposal Writing and Evaluation Experience** as **Computer Engineer** (Jan to May 2025, **5 mos**). **Mission Concept Academy** as **CDH Engineer** (May to Aug 2025, **4 mos**).",
     highlights: [
-      "Ranked top 6 out of 47 proposals in the proposal cycle",
+      "Ranked **top 6** out of **47 proposals** in the proposal cycle",
       "Learned to write and evaluate professional technical proposals against NASA style solicitations and rubrics",
       "As Computer Engineer: contributed software, data storage, and UI toward a novel monitoring concept, including 3D mapping for situational awareness",
       "Researched software heritage to strengthen the technical story and align with NASA standards and processes",
@@ -92,26 +119,37 @@ const experiences: Experience[] = [
       "Served as a proposal reviewer on a NASA style panel, scoring submissions and giving structured feedback to teams",
     ],
   },
-  // {
-  //   id: 3,
-  //   role: "Experience Title 3",
-  //   company: "Company / Lab 3",
-  //   location: "Location 3",
-  //   duration: "Start - End",
-  //   description: "Add your third experience details here.",
-  // },
+  {
+    id: 3,
+    role: "Kode With Klossy Scholar · Mobile Apps, Data Science & Web",
+    company: "Kode With Klossy",
+    location: "Remote",
+    duration: "Jul 2021 – Jun 2023 · three 1-month programs",
+    logoUrl: "/kwklogo.png",
+    logoScale: 0.9,
+    logoPosition: "50% 50%",
+    description:
+      "Selected for **three** competitive summer scholarships in an **all-girls coding camp** focused on websites, mobile apps, data visualization, and equity for **women in STEM**.",
+    highlights: [
+      "**Jun 2023 · Mobile App Development:** built **eMeow**, an emotional intelligence tracker for mental health that helps users express difficult emotions and suggests services and coping strategies (**Xcode**, **Swift**).",
+      "**Jul 2022 · Data Science:** built **REBLOOM**, a site to expose STEM subjects to **POC communities**; organized data in **Google Sheets** and **Google Data Studio** and presented it on the web.",
+      "**Jul 2021 · Web Development:** built **SafeWalk**, a personalized site aimed at safer solo walks, especially at night.",
+      "Each program: **full scholarship** to intensive technical instruction, project shipping, and discussion of **gender disparity in STEM** careers.",
+    ],
+  },
 ];
 
-/** Projects shown in the home "Projects" section only. The `/projects` page uses its own list in `app/projects/page.tsx`. */
-const featuredProjects: ProjectCard[] = [
+/** Engineering projects shown on the home page. */
+const featuredEngineeringProjects: ProjectCard[] = [
   {
     name: "EcoPrompt",
     eventLine: "FullyHacks 2026 ✦ CSUF",
     description:
-      "EcoPrompt uses multistage LLM rewrites, local inference, and retrieval backed evaluation so users can tune prompts with less waste.",
+      "**Sustainable AI pipeline** that leverages **local LLMs** and a **RAG** layer to rewrite inefficient user prompts into concise, structured versions, significantly reducing **token waste** and environmental impact of large-scale generative tasks",
     imageUrl: "/demoecoprompt.png",
-    githubUrl: "https://github.com/jdc88/project-1",
-    liveUrl: "https://example.com/project-1",
+    githubUrl: "https://github.com/nickmarietta/EcoPrompt.git",
+    liveUrl: "https://devpost.com/software/ecoprompt-ctyg5x",
+    liveLabel: "Devpost",
     techStack: [
       "Next.js 14",
       "FastAPI",
@@ -124,12 +162,13 @@ const featuredProjects: ProjectCard[] = [
   },
   {
     name: "Bio-Symphony",
-    eventLine: "Google DeepMind Gemini API Hackathon ✦ UCLA",
+    eventLine: "Google DeepMind Gemini API Hackathon 2026 ✦ UCLA",
     description:
-      "Bio Symphony turns webcam pose into sound with MediaPipe and Tone.js, plus beds from text prompts with Lyria via Gemini. Next.js, TypeScript, and Tailwind.",
-    imageUrl: "/biosymphony.png",
-    githubUrl: "https://github.com/jdc88/project-2",
-    liveUrl: "https://example.com/project-2",
+      "Interactive web application that uses **MediaPipe** pose tracking to analyze your yoga movements and **Google Lyria** to generate **real-time** instrumental music tailored to the flow and stability of your practice",
+    imageUrl: "/BioSymphony.png",
+    githubUrl: "https://github.com/jdc88/buildwithgeminii",
+    liveUrl: "https://www.kaggle.com/competitions/ucla-gemini-api-hackathon/writeups/new-writeup-1774717020439",
+    liveLabel: "Kaggle",
     techStack: [
       "Next.js 16 (App Router)",
       "React 19",
@@ -142,11 +181,14 @@ const featuredProjects: ProjectCard[] = [
   },
   {
     name: "ColorMe",
+    // eventLine: "2026",
     description:
-      "Seasonal style color guidance for skin tone. Vanilla JS with Flask, JWT, and saved analyses, NumPy rules, and photo sampling with sklearn KMeans, OpenCV, and Pillow.",
+      "Analyzes a user’s face photo to detect **skin tone** and **undertone**, then recommends **seasonal color palettes** and styling guidance, with optional signup/login to save results.",
     imageUrl: "/ColorMedemo.png",
-    githubUrl: "https://github.com/jdc88/project-3",
-    liveUrl: "https://example.com/project-3",
+    githubUrl: "https://github.com/jdc88/ColorMe-Analysis",
+    // liveUrl: "https://example.com/project-3",
+    // liveLabel: "Open Website",
+    // made conditional with '?'
     techStack: [
       "Python / Flask",
       "HTML, CSS, JavaScript",
@@ -158,14 +200,55 @@ const featuredProjects: ProjectCard[] = [
       "Express (optional)",
     ],
   },
+  // {
+  //   name: "Nuri",
+  //   description:
+  //     "Skincare shopping with **ingredient lists** users can control, **search and barcode scan**, and **bookmarks in Core Data**. **UPCitemdb** and a growing ingredient set.",
+  //   imageUrl: "/Nuridemo.png",
+  //   githubUrl: "https://github.com/jdc88/Nuri",
+  //   techStack: ["Swift / UIKit", "Core Data", "Xcode", "UPCitemdb API", "GitHub"],
+  // },
   {
-    name: "Nuri",
+    name: "Coin-Constrained Path Finder",
     description:
-      "Skincare shopping with ingredient lists users can control, search and barcode scan, and bookmarks in Core Data. UPCitemdb and a growing ingredient set. Calm UI and AI recommendations planned.",
-    imageUrl: "/Nuridemo.png",
-    githubUrl: "https://github.com/jdc88/project-4",
-    liveUrl: "https://example.com/project-4",
-    techStack: ["Swift / UIKit", "Core Data", "Xcode", "UPCitemdb API", "GitHub"],
+      "Python + **Tkinter GUI** that finds the **shortest route** between cities on a weighted graph while staying under a **coin budget**, using constrained A* search and comparing your path to the optimal solution with **live visualization**.",
+    imageUrl: "/coinconstraintdemo.png",
+    githubUrl: "https://github.com/jdc88/Nuri",
+    // liveUrl: "https://example.com/project-4",
+    // liveLabel: "View MVP",
+    techStack: [
+      "Python 3",
+      "Tkinter (ttk / messagebox)",
+      "A* search",
+      "Graph data structures",
+      "heapq",
+    ],
+  },
+];
+
+/** Product/design projects shown on the home page. */
+const featuredDesignProjects: ProjectCard[] = [
+  {
+    name: "Vestige",
+    eventLine: "FigBuild 2026 ✦ Design Challenge",
+    description:
+      "Assistive wearable that leverages **biometric data** and **Targeted Memory Reactivation (TMR)** to help **Alzheimer’s** patients capture and preserve emotionally significant moments",
+    imageUrl: "/Vestige.png",
+    liveUrl: "https://devpost.com/software/vestige-bstojq",
+    liveLabel: "Devpost",
+    figmaUrl: "https://www.figma.com/",
+    figmaLabel: "Figma",
+    techStack: ["Figma", "User Flows", "Wireframes", "Prototype Testing"],
+  },
+  {
+    name: "Destinate",
+    description:
+      "**Community-based travel forum** connecting global users to share itineraries, discover hidden gems, and exchange tips for creating **personalized**, unforgettable journeys.",
+    imageUrl: "/Destinate.png",
+    githubUrl: "https://github.com/jdc88/Destinate-Figma-Prototype",
+    liveUrl: "https://www.figma.com/",
+    liveLabel: "Figma Prototype",
+    techStack: ["Figma", "Interaction Design", "UI Systems"],
   },
 ];
 
@@ -194,29 +277,11 @@ const sectionStyles = {
   sectionHeading: "font-museo mb-4 text-left text-[24px] font-bold md:text-[30px]",
 };
 
-const chatbotResponses: Record<string, string> = {
-  skills:
-    "Josephine specializes in AI, software architecture, and user experience. She works with technologies like Python, JavaScript, React, and various AI/ML frameworks.",
-  projects:
-    "Check out the Projects section above to see Josephine's latest work! She's built some amazing AI-powered applications.",
-  experience:
-    "Josephine has experience in software development with a focus on AI applications. Visit the Experience section to learn more!",
-  hello: "Hello! How can I help you learn more about Josephine?",
-  hi: "Hi there! What would you like to know about Josephine's work?",
-  default:
-    "That's a great question! You can explore the different sections to learn more about Josephine!",
-};
-
-function getBotResponse(input: string) {
-  const lower = input.toLowerCase();
-  for (const [keyword, response] of Object.entries(chatbotResponses)) {
-    if (lower.includes(keyword)) return response;
-  }
-  return chatbotResponses.default;
-}
-
 export default function Home() {
   const [activeSection, setActiveSection] = useState("home");
+  const [activeProjectGroup, setActiveProjectGroup] = useState<"engineering" | "design">(
+    "engineering",
+  );
   const [expandedExperienceIds, setExpandedExperienceIds] = useState<Set<number>>(
     () => new Set(),
   );
@@ -230,13 +295,27 @@ export default function Home() {
   };
   const [chatOpen, setChatOpen] = useState(false);
   const [chatInput, setChatInput] = useState("");
+  const [chatSuggestionsSuppressed, setChatSuggestionsSuppressed] = useState(false);
+  const [chatSuggestIndex, setChatSuggestIndex] = useState(0);
   const [stars, setStars] = useState<Star[]>([]);
   const [shootingStars, setShootingStars] = useState<ShootingStar[]>([]);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
-      text: "Hi! I'm Josephine's AI assistant. Ask me about her skills, projects, or experience!",
+      text: "Hi! I'm Josephine's assistant for this portfolio—tap a quick topic below, start typing for suggested questions (Tab fills the highlighted one), or ask anything in your own words.",
     },
   ]);
+  const visibleFeaturedProjects =
+    activeProjectGroup === "engineering" ? featuredEngineeringProjects : featuredDesignProjects;
+
+  const chatSuggestions = useMemo(() => {
+    if (chatSuggestionsSuppressed) return [];
+    return filterChatSuggestions(chatInput, 6);
+  }, [chatInput, chatSuggestionsSuppressed]);
+
+  useEffect(() => {
+    if (chatSuggestions.length === 0) setChatSuggestIndex(0);
+    else setChatSuggestIndex((i) => Math.min(Math.max(i, 0), chatSuggestions.length - 1));
+  }, [chatSuggestions]);
 
   useEffect(() => {
     setStars(createInitialStars());
@@ -285,16 +364,30 @@ export default function Home() {
     return () => window.clearInterval(interval);
   }, []);
 
-  const sendMessage = () => {
-    const trimmed = chatInput.trim();
+  const sendPrompt = (raw: string, responseOverride?: string) => {
+    const trimmed = raw.trim();
     if (!trimmed) return;
 
+    setChatSuggestionsSuppressed(false);
     setMessages((prev) => [...prev, { text: trimmed, isUser: true }]);
     setChatInput("");
 
     window.setTimeout(() => {
-      setMessages((prev) => [...prev, { text: getBotResponse(trimmed) }]);
+      setMessages((prev) => [
+        ...prev,
+        { text: responseOverride ?? getPortfolioChatResponse(trimmed) },
+      ]);
     }, 500);
+  };
+
+  const sendMessage = () => {
+    sendPrompt(chatInput);
+  };
+
+  const applyChatSuggestion = (text: string) => {
+    setChatSuggestionsSuppressed(true);
+    setChatInput(text);
+    setChatSuggestIndex(0);
   };
 
   return (
@@ -447,8 +540,34 @@ export default function Home() {
           <h2 className={sectionStyles.sectionHeading}>
             Projects
           </h2>
+          <div className="mb-5 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => setActiveProjectGroup("engineering")}
+              className={`font-montserrat inline-flex items-center rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
+                activeProjectGroup === "engineering"
+                  ? "border-[#AADAFF] bg-[#AADAFF]/15 text-[#AADAFF]"
+                  : "border-slate-500 text-slate-200 hover:border-[#AADAFF]/60 hover:text-[#AADAFF]"
+              }`}
+              aria-pressed={activeProjectGroup === "engineering"}
+            >
+              Full Stack Development
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveProjectGroup("design")}
+              className={`font-montserrat inline-flex items-center rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
+                activeProjectGroup === "design"
+                  ? "border-[#AADAFF] bg-[#AADAFF]/15 text-[#AADAFF]"
+                  : "border-slate-500 text-slate-200 hover:border-[#AADAFF]/60 hover:text-[#AADAFF]"
+              }`}
+              aria-pressed={activeProjectGroup === "design"}
+            >
+              UI/UX Prototypes
+            </button>
+          </div>
           <div className="portfolio-container">
-            {featuredProjects.map((project) => (
+            {visibleFeaturedProjects.map((project) => (
               <div key={project.name} className="portfolio-box">
                 <div className="relative mb-3 h-52 w-full overflow-hidden">
                   <Image
@@ -461,12 +580,12 @@ export default function Home() {
                 </div>
                 <h3 className="font-museo text-xl font-bold text-[#AADAFF]">{project.name}</h3>
                 {project.eventLine ? (
-                  <p className="font-montserrat mt-1 text-[11px] leading-snug text-[#f5e8a8] md:text-[12px]">
+                  <p className="font-montserrat mt-1 text-[11px] leading-snug text-[#fbeb79] md:text-[12px]">
                     {project.eventLine}
                   </p>
                 ) : null}
                 <p className="font-montserrat mt-1.5 text-[12px] text-[rgb(209,213,219)] md:text-[14px]">
-                  {project.description}
+                  {formatInlineBold(project.description)}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {project.techStack.map((tech) => (
@@ -478,31 +597,47 @@ export default function Home() {
                     </span>
                   ))}
                 </div>
-                <div className="mt-3 flex items-center gap-2">
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`${project.name} GitHub repository`}
-                    className="inline-flex items-center justify-center text-white transition hover:text-[#AADAFF]"
-                  >
-                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                      <path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 0 0 8.2 11.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.2 1.9 1.2 1.1 1.9 2.8 1.4 3.5 1.1.1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.4-5.5-6a4.7 4.7 0 0 1 1.2-3.3c-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.1 11.1 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.3 2.8.1 3.1a4.7 4.7 0 0 1 1.2 3.3c0 4.6-2.8 5.7-5.5 6 .4.3.8 1 .8 2.1v3.1c0 .3.2.7.8.6A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
-                    </svg>
-                  </a>
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`${project.name} live demo`}
-                    className="font-montserrat inline-flex items-center rounded-full border border-[#AADAFF]/50 px-2.5 py-1 text-xs font-semibold text-[#AADAFF] transition hover:bg-[#AADAFF]/10"
-                  >
-                    Live Link
-                  </a>
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  {project.githubUrl ? (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`${project.name} GitHub repository`}
+                      className="inline-flex items-center justify-center text-white transition hover:text-[#AADAFF]"
+                    >
+                      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                        <path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 0 0 8.2 11.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.6-1.4-1.4-1.8-1.4-1.8-1.1-.8.1-.8.1-.8 1.2.1 1.9 1.2 1.9 1.2 1.1 1.9 2.8 1.4 3.5 1.1.1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.4-5.5-6a4.7 4.7 0 0 1 1.2-3.3c-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.1 11.1 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.7 1.6.3 2.8.1 3.1a4.7 4.7 0 0 1 1.2 3.3c0 4.6-2.8 5.7-5.5 6 .4.3.8 1 .8 2.1v3.1c0 .3.2.7.8.6A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                      </svg>
+                    </a>
+                  ) : null}
+                  {project.liveUrl ? (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`${project.name} live demo`}
+                      className="font-montserrat inline-flex items-center rounded-full border border-[#AADAFF]/50 px-2.5 py-1 text-xs font-semibold text-[#AADAFF] transition hover:bg-[#AADAFF]/10"
+                    >
+                      {project.liveLabel ?? "Live Link"}
+                    </a>
+                  ) : null}
+                  {project.figmaUrl ? (
+                    <a
+                      href={project.figmaUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`${project.name} Figma`}
+                      className="font-montserrat inline-flex items-center rounded-full border border-[#AADAFF]/50 px-2.5 py-1 text-xs font-semibold text-[#AADAFF] transition hover:bg-[#AADAFF]/10"
+                    >
+                      {project.figmaLabel ?? "Figma"}
+                    </a>
+                  ) : null}
                 </div>
               </div>
             ))}
           </div>
+          {/* Temporarily hidden — uncomment block + add: import Link from "next/link";
           <div className="mt-5 flex justify-center md:justify-start">
             <Link
               href="/projects"
@@ -511,6 +646,7 @@ export default function Home() {
               View More Projects
             </Link>
           </div>
+          */}
         </div>
       </section>
 
@@ -526,7 +662,22 @@ export default function Home() {
               const headingId = `experience-heading-${exp.id}`;
               return (
               <div key={exp.id} className="timeline-item">
-                <div className="timeline-dot" />
+                <div className="timeline-dot">
+                  {exp.logoUrl ? (
+                    <Image
+                      src={exp.logoUrl}
+                      alt={`${exp.company} logo`}
+                      fill
+                      sizes="56px"
+                      className="timeline-logo-image object-contain"
+                      style={{
+                        objectPosition: exp.logoPosition ?? "50% 50%",
+                        transform: `scale(${exp.logoScale ?? 1})`,
+                        transformOrigin: "center center",
+                      }}
+                    />
+                  ) : null}
+                </div>
                 <div className="timeline-content">
                   <h3
                     id={headingId}
@@ -570,12 +721,12 @@ export default function Home() {
                     className="mt-2"
                   >
                     <p className="font-montserrat text-[12px] leading-relaxed md:text-[14px]">
-                      {exp.description}
+                      {formatInlineBold(exp.description)}
                     </p>
                     {exp.highlights?.length ? (
                       <ul className="font-montserrat mt-2 list-disc space-y-1.5 pl-5 text-[12px] leading-relaxed text-[rgb(209,213,219)] md:mt-3 md:text-[14px]">
                         {exp.highlights.map((item, i) => (
-                          <li key={`${exp.id}-highlight-${i}`}>{item}</li>
+                          <li key={`${exp.id}-highlight-${i}`}>{formatInlineBold(item)}</li>
                         ))}
                       </ul>
                     ) : null}
@@ -657,40 +808,111 @@ export default function Home() {
               ))}
             </div>
             <div className="shrink-0 border-t border-slate-600 bg-[rgb(15,23,42)] p-2.5 sm:p-3">
-              <div className="flex items-center gap-2">
-                <input
-                  id="chat-input"
-                  type="text"
-                  value={chatInput}
-                  onChange={(e) => setChatInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") sendMessage();
-                  }}
-                  placeholder="Ask me anything..."
-                  className="font-montserrat min-h-9 flex-1 rounded-full border border-slate-600 bg-[rgb(30,41,59)] px-3 py-1.5 text-xs text-white outline-none placeholder:text-slate-400 focus:border-[#AADAFF]/50 sm:min-h-10 sm:px-4 sm:py-2 sm:text-sm"
-                />
-                <button
-                  id="chat-send"
-                  type="button"
-                  onClick={sendMessage}
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-none bg-[#AADAFF] text-[rgb(4,13,27)] hover:brightness-110 sm:h-10 sm:w-10"
-                  aria-label="Send message"
-                >
-                  <svg
-                    className="h-4 w-4 sm:h-5 sm:w-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden
+              <div
+                className="scrollbar-hide mb-2 flex gap-1.5 overflow-x-auto pb-0.5 [-webkit-overflow-scrolling:touch]"
+                role="toolbar"
+                aria-label="Quick questions"
+              >
+                {CHAT_QUICK_PILLS.map((pill) => (
+                  <button
+                    key={pill.label}
+                    type="button"
+                    onClick={() => sendPrompt(pill.prompt, pill.responseOverride)}
+                    className="font-montserrat shrink-0 rounded-full border border-slate-500/90 bg-[rgb(30,41,59)] px-2.5 py-1 text-[10px] font-medium text-slate-100 transition hover:border-[#AADAFF]/55 hover:bg-[#AADAFF]/10 hover:text-[#AADAFF] sm:text-[11px]"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                    />
-                  </svg>
-                </button>
+                    {pill.label}
+                  </button>
+                ))}
+              </div>
+              <div className="relative">
+                {chatSuggestions.length > 0 ? (
+                  <ul
+                    id="chat-suggestions"
+                    role="listbox"
+                    aria-label="Suggested questions"
+                    className="font-montserrat absolute bottom-full left-0 right-0 z-10 mb-1 max-h-[7.5rem] overflow-y-auto overscroll-contain rounded-xl border border-slate-600 bg-[rgb(23,37,60)] py-1 shadow-lg sm:max-h-[8.5rem]"
+                  >
+                    {chatSuggestions.map((s, i) => (
+                      <li key={s.text} role="option" aria-selected={i === chatSuggestIndex}>
+                        <button
+                          type="button"
+                          className={`w-full px-3 py-1.5 text-left text-[11px] leading-snug sm:text-xs ${
+                            i === chatSuggestIndex
+                              ? "bg-[#AADAFF]/20 text-[#AADAFF]"
+                              : "text-slate-100 hover:bg-white/5"
+                          }`}
+                          onMouseDown={(e) => e.preventDefault()}
+                          onClick={() => applyChatSuggestion(s.text)}
+                        >
+                          {s.text}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+                <div className="flex items-center gap-2">
+                  <input
+                    id="chat-input"
+                    type="text"
+                    value={chatInput}
+                    onChange={(e) => {
+                      setChatSuggestionsSuppressed(false);
+                      setChatInput(e.target.value);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Escape") {
+                        setChatSuggestionsSuppressed(true);
+                        return;
+                      }
+                      if (chatSuggestions.length > 0 && e.key === "ArrowDown") {
+                        e.preventDefault();
+                        setChatSuggestIndex((i) => Math.min(i + 1, chatSuggestions.length - 1));
+                        return;
+                      }
+                      if (chatSuggestions.length > 0 && e.key === "ArrowUp") {
+                        e.preventDefault();
+                        setChatSuggestIndex((i) => Math.max(i - 1, 0));
+                        return;
+                      }
+                      if (e.key === "Tab" && chatSuggestions.length > 0 && !e.shiftKey) {
+                        e.preventDefault();
+                        applyChatSuggestion(chatSuggestions[chatSuggestIndex]?.text ?? chatSuggestions[0].text);
+                        return;
+                      }
+                      if (e.key === "Enter") {
+                        sendMessage();
+                      }
+                    }}
+                    placeholder="Ask me anything..."
+                    autoComplete="off"
+                    aria-autocomplete="list"
+                    aria-controls={chatSuggestions.length > 0 ? "chat-suggestions" : undefined}
+                    aria-expanded={chatSuggestions.length > 0}
+                    className="font-montserrat min-h-9 flex-1 rounded-full border border-slate-600 bg-[rgb(30,41,59)] px-3 py-1.5 text-xs text-white outline-none placeholder:text-slate-400 focus:border-[#AADAFF]/50 sm:min-h-10 sm:px-4 sm:py-2 sm:text-sm"
+                  />
+                  <button
+                    id="chat-send"
+                    type="button"
+                    onClick={sendMessage}
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-none bg-[#AADAFF] text-[rgb(4,13,27)] hover:brightness-110 sm:h-10 sm:w-10"
+                    aria-label="Send message"
+                  >
+                    <svg
+                      className="h-4 w-4 sm:h-5 sm:w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                      />
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

@@ -85,6 +85,7 @@ section {
 }
 
 .timeline {
+  --timeline-line-x: 50px;
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
@@ -93,7 +94,7 @@ section {
 .timeline::before {
   content: "";
   position: absolute;
-  left: 50px;
+  left: var(--timeline-line-x);
   top: 0;
   bottom: 0;
   width: 2px;
@@ -106,32 +107,34 @@ section {
 
 .timeline-item {
   position: relative;
-  padding-left: 100px;
+  padding-left: 120px;
   margin-bottom: 50px;
 }
 
 .timeline-dot {
+  /* Adjust logo size here */
+  --timeline-logo-size: 70px;
+  --timeline-logo-top-offset: 60px;
   position: absolute;
-  left: 43px;
-  top: 0;
-  width: 15px;
-  height: 15px;
-  background: #ffffff;
+  left: calc(var(--timeline-line-x) - (var(--timeline-logo-size) / 2));
+  /* top: var(--timeline-logo-top-offset); */
+  top: -10px;
+  width: var(--timeline-logo-size);
+  height: var(--timeline-logo-size);
+  overflow: hidden;
+  background: transparent;
   border-radius: 50%;
-  box-shadow: 0 0 20px rgba(170, 218, 255, 0.6);
+  border: none;
+  box-shadow: none;
   z-index: 2;
 }
 
-.timeline-dot::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 10px;
-  height: 10px;
-  background: #ffffff;
-  border-radius: 50%;
+.timeline-logo-image {
+  width: 100%;
+  height: 100%;
+  padding: 3px;
+  object-fit: contain;
+  filter: none;
 }
 
 .timeline-content {
@@ -358,15 +361,20 @@ section {
 }
 
 @media (max-width: 768px) {
+  .timeline {
+    --timeline-line-x: 20px;
+  }
+
   .timeline::before {
-    left: 20px;
+    left: var(--timeline-line-x);
   }
 
   .timeline-item {
-    padding-left: 60px;
+    padding-left: 74px;
   }
 
   .timeline-dot {
-    left: 13px;
+    --timeline-logo-size: 40px;
+    --timeline-logo-top-offset: 10px;
   }
 }
