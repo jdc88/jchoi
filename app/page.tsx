@@ -213,7 +213,7 @@ const featuredEngineeringProjects: ProjectCard[] = [
     description:
       "Python + **Tkinter GUI** that finds the **shortest route** between cities on a weighted graph while staying under a **coin budget**, using constrained A* search and comparing your path to the optimal solution with **live visualization**",
     imageUrl: "/coinconstraintdemo.png",
-    githubUrl: "https://github.com/jdc88/Nuri",
+    githubUrl: "https://github.com/jdc88/Coin-Constrained-Path-Finder.git",
     // liveUrl: "https://example.com/project-4",
     // liveLabel: "View MVP",
     techStack: [
@@ -243,7 +243,7 @@ const featuredDesignProjects: ProjectCard[] = [
   {
     name: "Destinate",
     description:
-      "**Community-based travel forum** connecting global users to share itineraries, discover hidden gems, and exchange tips for creating **personalized**, unforgettable journeys.",
+      "**Community-based travel forum** connecting global users to share itineraries, discover hidden gems, and exchange tips for creating **personalized**, unforgettable journeys",
     imageUrl: "/Destinate.png",
     githubUrl: "https://github.com/jdc88/Destinate-Figma-Prototype",
     liveUrl: "https://www.figma.com/",
