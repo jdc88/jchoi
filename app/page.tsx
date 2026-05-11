@@ -236,7 +236,7 @@ const featuredDesignProjects: ProjectCard[] = [
     imageUrl: "/Vestige.png",
     liveUrl: "https://devpost.com/software/vestige-bstojq",
     liveLabel: "Devpost",
-    figmaUrl: "https://www.figma.com/",
+    figmaUrl: "https://www.figma.com/design/ckV8tO3Kbc1GVfbX4tjDFI/FigBuild-2026---Vestige?node-id=0-1&t=9p9G9Qzd05o0z1Bo-1",
     figmaLabel: "Figma",
     techStack: ["Figma", "User Flows", "Wireframes", "Prototype Testing"],
   },
