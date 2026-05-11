@@ -183,7 +183,7 @@ const featuredEngineeringProjects: ProjectCard[] = [
     name: "ColorMe",
     // eventLine: "2026",
     description:
-      "Analyzes a user’s face photo to detect **skin tone** and **undertone**, then recommends **seasonal color palettes** and styling guidance, with optional signup/login to save results.",
+      "Analyzes a user’s face photo to detect **skin tone** and **undertone**, then recommends **seasonal color palettes** and styling guidance, with optional signup/login to save results",
     imageUrl: "/ColorMedemo.png",
     githubUrl: "https://github.com/jdc88/ColorMe-Analysis",
     // liveUrl: "https://example.com/project-3",
@@ -211,7 +211,7 @@ const featuredEngineeringProjects: ProjectCard[] = [
   {
     name: "Coin-Constrained Path Finder",
     description:
-      "Python + **Tkinter GUI** that finds the **shortest route** between cities on a weighted graph while staying under a **coin budget**, using constrained A* search and comparing your path to the optimal solution with **live visualization**.",
+      "Python + **Tkinter GUI** that finds the **shortest route** between cities on a weighted graph while staying under a **coin budget**, using constrained A* search and comparing your path to the optimal solution with **live visualization**",
     imageUrl: "/coinconstraintdemo.png",
     githubUrl: "https://github.com/jdc88/Nuri",
     // liveUrl: "https://example.com/project-4",
@@ -484,7 +484,7 @@ export default function Home() {
             </span>
           </div>
           <p className="font-montserrat mt-4 text-center text-[15px] leading-snug font-semibold md:text-left md:text-[19px]">
-            CS @ CSUF  .✦ ݁˖  pursuing MS @ Georgia Tech
+            CS @ CSUF  .✦ ݁˖  incoming MS @ Georgia Tech
           </p>
           <p className="font-montserrat mt-2 text-center text-[12px] leading-relaxed text-[#aadaff] md:text-left md:text-[14px]">
             I enjoy turning complex ideas into structured, functional systems that balance technical depth with thoughtful design, creating solutions that are both impactful and visually refined.          </p>
