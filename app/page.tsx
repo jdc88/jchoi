@@ -301,8 +301,8 @@ export default function Home() {
   const [shootingStars, setShootingStars] = useState<ShootingStar[]>([]);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
-      text: "Hi! I'm Josephine's assistant for this portfolio — tap a quick topic below, start typing for suggested questions (Tab fills the highlighted one), or ask anything in your own words.",
-    },
+      text: "Hi! I'm Josephine's assistant for her portfolio! Feel free to tap a topic, start typing a question, or just tell me what you need to get started!",
+    }, 
   ]);
   const visibleFeaturedProjects =
     activeProjectGroup === "engineering" ? featuredEngineeringProjects : featuredDesignProjects;
