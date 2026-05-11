@@ -67,7 +67,7 @@ const RULES: { test: (s: string) => boolean; reply: string }[] = [
       s.includes("degree") ||
       s.includes("major"),
     reply:
-      "Josephine is graduating in May 2026 with a Computer Science degree from California State University, Fullerton, and will be pursuing a master's degree at Georgia Tech starting in Fall 2026. She focuses on turning complex ideas into structured, reliable systems with thoughtful design. She is actively seeking roles in AI, machine learning, and software engineering.",
+      "Josephine is an incoming Georgia Tech Master’s student and May 2026 CS graduate from CSU Fullerton, specializing in building reliable, structured AI and software systems. She is actively seeking AI, machine learning, and software engineering roles.",
   },
   {
     test: (s) =>
