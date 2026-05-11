@@ -301,7 +301,7 @@ export default function Home() {
   const [shootingStars, setShootingStars] = useState<ShootingStar[]>([]);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
-      text: "Hi! I'm Josephine's assistant for this portfolio—tap a quick topic below, start typing for suggested questions (Tab fills the highlighted one), or ask anything in your own words.",
+      text: "Hi! I'm Josephine's assistant for this portfolio — tap a quick topic below, start typing for suggested questions (Tab fills the highlighted one), or ask anything in your own words.",
     },
   ]);
   const visibleFeaturedProjects =
