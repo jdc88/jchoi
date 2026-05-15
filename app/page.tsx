@@ -921,7 +921,7 @@ export default function Home() {
         <button
           id="chat-toggle"
           onClick={() => setChatOpen((prev) => !prev)}
-          className="h-[120px] w-[120px] shrink-0 cursor-pointer overflow-hidden border-none bg-transparent p-0 sm:h-[140px] sm:w-[140px]"
+          className="h-[130px] w-[130px] shrink-0 cursor-pointer overflow-hidden border-none bg-transparent p-0 sm:h-[160px] sm:w-[160px]"
           aria-label="Toggle chatbot"
         >
           <Image
