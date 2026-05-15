@@ -121,7 +121,7 @@ const experiences: Experience[] = [
   },
   {
     id: 3,
-    role: "Kode With Klossy Scholar ✦ Mobile Apps, Data Science & Web",
+    role: "Kode With Klossy Scholar ✦ Mobile Apps, Data Science, & Web Apps",
     company: "Kode With Klossy",
     location: "Remote",
     duration: "Jul 2021 – Jun 2023 ✧ three 1-month programs",
