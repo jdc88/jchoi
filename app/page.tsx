@@ -105,7 +105,7 @@ const experiences: Experience[] = [
     location: "Remote",
     duration: "Jan 2025 to Aug 2025 ✧ 8 mos",
     logoUrl: "/lspacelogo.png",
-    logoScale: 0.88,
+    logoScale: 0.9,
     logoPosition: "50% 50%",
     description:
       "Two consecutive virtual workforce preparation academies led by **NASA** experts. **Proposal Writing and Evaluation Experience** as **Computer Engineer** (Jan to May 2025, **5 mos**). **Mission Concept Academy** as **CDH Engineer** (May to Aug 2025, **4 mos**).",
