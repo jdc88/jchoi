@@ -224,6 +224,7 @@ const featuredEngineeringProjects: ProjectCard[] = [
       "heapq",
     ],
   },
+  
 ];
 
 /** Product/design projects shown on the home page. */
@@ -935,11 +936,11 @@ export default function Home() {
       </div>
 
       <footer className="relative z-10 mt-16 px-5 pt-10 pb-8 text-center">
-        <div className="font-montserrat text-sm text-white/60">
+        <div className="font-montserrat text-sm text-white/90">
           Crafted with love under twinkling stars 💫
         </div>
-        <div className="font-montserrat mt-2 text-xs text-white/40">
-          © 2025 Josephine Choi. All rights reserved.
+        <div className="font-montserrat mt-2 text-xs text-white/60">
+          © 2026 Josephine Choi ✦ All rights reserved.
         </div>
       </footer>
     </div>
