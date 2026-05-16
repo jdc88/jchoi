@@ -773,7 +773,7 @@ export default function Home() {
 
       <div
         id="chatbot-container"
-        className="fixed bottom-3 right-3 z-50 flex flex-col items-end gap-3 sm:bottom-4 sm:right-4"
+        className="fixed bottom-11 right-3 z-50 flex flex-col items-end gap-3 sm:bottom-4 sm:right-4"
       >
         {chatOpen ? (
           <div
@@ -934,7 +934,7 @@ export default function Home() {
         <button
           id="chat-toggle"
           onClick={() => setChatOpen((prev) => !prev)}
-          className="h-[130px] w-[130px] shrink-0 cursor-pointer overflow-hidden border-none bg-transparent p-0 sm:h-[160px] sm:w-[160px]"
+          className="h-[160px] w-[160px] shrink-0 cursor-pointer overflow-hidden border-none bg-transparent p-0 sm:h-[160px] sm:w-[160px]"
           aria-label="Toggle chatbot"
         >
           <Image
