@@ -182,7 +182,7 @@ const RULES: { test: (s: string) => boolean; reply: string }[] = [
   {
     test: (s) => s.includes("design") || s.includes("figma") || s.includes("ux") || s.includes("prototype"),
     reply:
-      "On the home page, featured engineering projects include EcoPrompt, Bio-Symphony, ColorMe, and Coin-Constrained Path Finder. Featured design projects include Vestige and Destinate. Both projects emphasize Figma, user flows, and systems thinking alongside her full stack builds. You can toggle between both groups under Projects on this page.",
+      "On the home page, featured engineering projects include EcoPrompt, Smart Recipe Generator, ColorMe, and Bio-Symphony. Featured design projects include Vestige and Destinate. Both projects emphasize Figma, user flows, and systems thinking alongside her full stack builds. You can toggle between both groups under Projects on this page.",
   },
   {
     test: (s) =>
