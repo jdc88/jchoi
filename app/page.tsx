@@ -796,7 +796,7 @@ export default function Home() {
                 <div className="flex min-w-0 items-center gap-3">
                   <div className="h-2.5 w-2.5 shrink-0 rounded-full bg-green-400" />
                   <h3 className="font-museo truncate text-[15px] font-semibold sm:text-base">
-                    AI Assistant
+                    Portfolio Assistant
                   </h3>
                 </div>
                 <button
