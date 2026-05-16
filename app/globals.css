@@ -381,7 +381,7 @@ section {
   }
 
   .timeline-dot {
-    --timeline-logo-size: 40px;
+    --timeline-logo-size: 65px;
     --timeline-logo-top-offset: 10px;
   }
 }
