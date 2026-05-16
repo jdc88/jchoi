@@ -161,27 +161,19 @@ const featuredEngineeringProjects: ProjectCard[] = [
     ],
   },
   {
-    name: "Bio-Symphony",
-    eventLine: "Google DeepMind Gemini API Hackathon 2026 ✦ UCLA",
+    name: "Smart Recipe Generator",
+    eventLine: "✦ Built supervised learning & recipe ranking pipeline ✦",
     description:
-      "Interactive web application that uses **MediaPipe** pose tracking to analyze your yoga movements and **Google Lyria** to generate **real-time** instrumental music tailored to the flow and stability of your practice",
-    imageUrl: "/biosymphony.png",
-    githubUrl: "https://github.com/jdc88/buildwithgeminii",
-    liveUrl: "https://www.kaggle.com/competitions/ucla-gemini-api-hackathon/writeups/new-writeup-1774717020439",
-    liveLabel: "Kaggle",
-    techStack: [
-      "Next.js 16 (App Router)",
-      "React 19",
-      "TypeScript",
-      "Tailwind CSS 4",
-      "MediaPipe Tasks Vision",
-      "Google Gemini / Lyria (@google/genai)",
-      "Tone.js",
-    ],
+      "Turns **on-hand ingredients** into **custom AI-generated meals** and pulls **matching recipes** from a large **culinary dataset**, using a supervised **TF-IDF** + **Random Forest** pipeline to **rank and annotate** results",
+    imageUrl: "/SmartRecipe.png",
+    githubUrl: "https://github.com/jdc88/smart-recipe-generator",
+    liveUrl: "https://drive.google.com/file/d/1F8iGjjVv8XT5kRpMkUeTjcId_c1nwCxE/view",
+    liveLabel: "Demo Video",
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "REST APIs", "Python", "scikit-learn", "FastAPI", "Jupyter", "LLMs (Claude API)", "Supervised learning", "TF-IDF"],
   },
   {
     name: "ColorMe",
-    // eventLine: "2026",
+    eventLine: "✦ Built backend AI & color analysis ✦",
     description:
       "Analyzes a user’s face photo to detect **skin tone** and **undertone**, then recommends **seasonal color palettes** and styling guidance, with optional signup/login to save results",
     imageUrl: "/ColorMedemo.png",
@@ -200,6 +192,25 @@ const featuredEngineeringProjects: ProjectCard[] = [
       "Express (optional)",
     ],
   },
+  {
+    name: "Bio-Symphony",
+    eventLine: "Google DeepMind Gemini API Hackathon 2026 ✦ UCLA",
+    description:
+      "Interactive web application that uses **MediaPipe** pose tracking to analyze your yoga movements and **Google Lyria** to generate **real-time** instrumental music tailored to the flow and stability of your practice",
+    imageUrl: "/biosymphony.png",
+    githubUrl: "https://github.com/jdc88/buildwithgeminii",
+    liveUrl: "https://www.kaggle.com/competitions/ucla-gemini-api-hackathon/writeups/new-writeup-1774717020439",
+    liveLabel: "Kaggle",
+    techStack: [
+      "Next.js 16 (App Router)",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "MediaPipe Tasks Vision",
+      "Google Gemini / Lyria (@google/genai)",
+      "Tone.js",
+    ],
+  },
   // {
   //   name: "Nuri",
   //   description:
@@ -208,22 +219,23 @@ const featuredEngineeringProjects: ProjectCard[] = [
   //   githubUrl: "https://github.com/jdc88/Nuri",
   //   techStack: ["Swift / UIKit", "Core Data", "Xcode", "UPCitemdb API", "GitHub"],
   // },
-  {
-    name: "Coin-Constrained Path Finder",
-    description:
-      "Python + **Tkinter GUI** that finds the **shortest route** between cities on a weighted graph while staying under a **coin budget**, using constrained A* search and comparing your path to the optimal solution with **live visualization**",
-    imageUrl: "/coinconstraintdemo.png",
-    githubUrl: "https://github.com/jdc88/Coin-Constrained-Path-Finder.git",
-    // liveUrl: "https://example.com/project-4",
-    // liveLabel: "View MVP",
-    techStack: [
-      "Python 3",
-      "Tkinter (ttk / messagebox)",
-      "A* search",
-      "Graph data structures",
-      "heapq",
-    ],
-  },
+  
+  // {
+  //   name: "Coin-Constrained Path Finder",
+  //   description:
+  //     "Python + **Tkinter GUI** that finds the **shortest route** between cities on a weighted graph while staying under a **coin budget**, using constrained A* search and comparing your path to the optimal solution with **live visualization**",
+  //   imageUrl: "/coinconstraintdemo.png",
+  //   githubUrl: "https://github.com/jdc88/Coin-Constrained-Path-Finder.git",
+  //   // liveUrl: "https://example.com/project-4",
+  //   // liveLabel: "View MVP",
+  //   techStack: [
+  //     "Python 3",
+  //     "Tkinter (ttk / messagebox)",
+  //     "A* search",
+  //     "Graph data structures",
+  //     "heapq",
+  //   ],
+  // },
   
 ];
 

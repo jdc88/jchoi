@@ -152,23 +152,30 @@ section {
 }
 
 .portfolio-container {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.25rem;
 }
 
-@media (max-width: 900px) {
-  .portfolio-container {
-    grid-template-columns: 1fr;
-  }
-}
-
 .portfolio-box {
+  flex: 0 1 calc((100% - 1.25rem) / 2);
+  width: calc((100% - 1.25rem) / 2);
+  max-width: calc((100% - 1.25rem) / 2);
+  box-sizing: border-box;
   background: rgb(15, 23, 42);
   border: 1.5px solid rgb(51, 65, 85);
   border-radius: 1rem;
   padding: 1.25rem;
   transition: all 0.3s ease;
+}
+
+@media (max-width: 900px) {
+  .portfolio-box {
+    flex: 1 1 100%;
+    width: 100%;
+    max-width: 100%;
+  }
 }
 
 .portfolio-box:hover {
