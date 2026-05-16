@@ -142,6 +142,17 @@ const experiences: Experience[] = [
 /** Engineering projects shown on the home page. */
 const featuredEngineeringProjects: ProjectCard[] = [
   {
+    name: "Smart Recipe Generator",
+    eventLine: "✦ Built supervised learning & recipe ranking pipeline ✦",
+    description:
+      "Turns **on-hand ingredients** into **custom AI-generated meals** and pulls **matching recipes** from a large **culinary dataset**, using a supervised **TF-IDF** + **Random Forest** pipeline to **rank and annotate** results",
+    imageUrl: "/SmartRecipe.png",
+    githubUrl: "https://github.com/jdc88/smart-recipe-generator",
+    liveUrl: "https://drive.google.com/file/d/1F8iGjjVv8XT5kRpMkUeTjcId_c1nwCxE/view",
+    liveLabel: "Demo Video",
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "REST APIs", "Python", "scikit-learn", "FastAPI", "Jupyter", "LLMs (Claude API)", "Supervised learning", "Unsupervised learning", "TF-IDF"],
+  },
+  {
     name: "EcoPrompt",
     eventLine: "FullyHacks 2026 ✦ CSUF",
     description:
@@ -160,23 +171,23 @@ const featuredEngineeringProjects: ProjectCard[] = [
       "Prompt Optimization Pipeline",
     ],
   },
-  {
-    name: "Smart Recipe Generator",
-    eventLine: "✦ Built supervised learning & recipe ranking pipeline ✦",
-    description:
-      "Turns **on-hand ingredients** into **custom AI-generated meals** and pulls **matching recipes** from a large **culinary dataset**, using a supervised **TF-IDF** + **Random Forest** pipeline to **rank and annotate** results",
-    imageUrl: "/SmartRecipe.png",
-    githubUrl: "https://github.com/jdc88/smart-recipe-generator",
-    liveUrl: "https://drive.google.com/file/d/1F8iGjjVv8XT5kRpMkUeTjcId_c1nwCxE/view",
-    liveLabel: "Demo Video",
-    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "REST APIs", "Python", "scikit-learn", "FastAPI", "Jupyter", "LLMs (Claude API)", "Supervised learning", "TF-IDF"],
-  },
+  // {
+  //   name: "Smart Recipe Generator",
+  //   eventLine: "✦ Built supervised learning & recipe ranking pipeline ✦",
+  //   description:
+  //     "Turns **on-hand ingredients** into **custom AI-generated meals** and pulls **matching recipes** from a large **culinary dataset**, using a supervised **TF-IDF** + **Random Forest** pipeline to **rank and annotate** results",
+  //   imageUrl: "/SmartRecipe.png",
+  //   githubUrl: "https://github.com/jdc88/smart-recipe-generator",
+  //   liveUrl: "https://drive.google.com/file/d/1F8iGjjVv8XT5kRpMkUeTjcId_c1nwCxE/view",
+  //   liveLabel: "Demo Video",
+  //   techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "REST APIs", "Python", "scikit-learn", "FastAPI", "Jupyter", "LLMs (Claude API)", "Supervised learning", "Unsupervised learning", "TF-IDF"],
+  // },
   {
     name: "ColorMe",
     eventLine: "✦ Built backend AI & color analysis logic ✦",
     description:
       "Analyzes a user’s face photo to detect **skin tone** and **undertone**, then recommends **seasonal color palettes** and styling guidance, with optional signup/login to save results",
-    imageUrl: "/ColorMedemo.png",
+    imageUrl: "/ColorMeHome.png",
     githubUrl: "https://github.com/jdc88/ColorMe-Analysis",
     // liveUrl: "https://example.com/project-3",
     // liveLabel: "Open Website",
