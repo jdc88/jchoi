@@ -173,7 +173,7 @@ const featuredEngineeringProjects: ProjectCard[] = [
   },
   {
     name: "ColorMe",
-    eventLine: "✦ Built backend AI & color analysis ✦",
+    eventLine: "✦ Built backend AI & color analysis logic ✦",
     description:
       "Analyzes a user’s face photo to detect **skin tone** and **undertone**, then recommends **seasonal color palettes** and styling guidance, with optional signup/login to save results",
     imageUrl: "/ColorMedemo.png",
