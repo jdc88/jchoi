@@ -266,6 +266,7 @@ const featuredDesignProjects: ProjectCard[] = [
   },
   {
     name: "Destinate",
+    eventLine: "✦ Developed full UI/UX design and interactive prototyping ✦",
     description:
       "**Community-based travel forum** connecting global users to share itineraries, discover hidden gems, and exchange tips for creating **personalized**, unforgettable journeys",
     imageUrl: "/Destinate.png",
