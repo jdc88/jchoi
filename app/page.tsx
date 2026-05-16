@@ -270,7 +270,7 @@ const featuredDesignProjects: ProjectCard[] = [
       "**Community-based travel forum** connecting global users to share itineraries, discover hidden gems, and exchange tips for creating **personalized**, unforgettable journeys",
     imageUrl: "/Destinate.png",
     githubUrl: "https://github.com/jdc88/Destinate-Figma-Prototype",
-    liveUrl: "https://www.figma.com/",
+    liveUrl: "https://www.figma.com/design/3xz5FZbThb325xpHGX1Jf6/490-Prototype?node-id=0-1&t=kbuS9kf9HT4g5BFK-1",
     liveLabel: "Figma Prototype",
     techStack: ["Figma", "Interaction Design", "UI Systems"],
   },
