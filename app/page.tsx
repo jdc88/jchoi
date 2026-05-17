@@ -150,6 +150,8 @@ const featuredEngineeringProjects: ProjectCard[] = [
     githubUrl: "https://github.com/jdc88/smart-recipe-generator",
     liveUrl: "https://drive.google.com/file/d/1F8iGjjVv8XT5kRpMkUeTjcId_c1nwCxE/view",
     liveLabel: "Demo Video",
+    figmaUrl: "https://smart-recipe-generator-cpsc-483.vercel.app",
+    figmaLabel: "Live Website",
     techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "REST APIs", "Python", "scikit-learn", "FastAPI", "Jupyter", "LLMs (Claude API)", "Supervised learning", "Unsupervised learning", "TF-IDF"],
   },
   {
