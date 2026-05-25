@@ -264,7 +264,7 @@ const featuredDesignProjects: ProjectCard[] = [
     liveLabel: "Devpost",
     figmaUrl: "https://www.figma.com/design/ckV8tO3Kbc1GVfbX4tjDFI/FigBuild-2026---Vestige?node-id=0-1&t=9p9G9Qzd05o0z1Bo-1",
     figmaLabel: "Figma",
-    techStack: ["Figma", "", "UI/UX Design", "Prototyping"],
+    techStack: ["Figma", "UI/UX Design", "Prototyping"],
   },
   {
     name: "Destinate",
