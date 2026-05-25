@@ -264,7 +264,7 @@ const featuredDesignProjects: ProjectCard[] = [
     liveLabel: "Devpost",
     figmaUrl: "https://www.figma.com/design/ckV8tO3Kbc1GVfbX4tjDFI/FigBuild-2026---Vestige?node-id=0-1&t=9p9G9Qzd05o0z1Bo-1",
     figmaLabel: "Figma",
-    techStack: ["Figma", "User Flows", "Wireframes", "Prototype Testing"],
+    techStack: ["Figma", "", "UI/UX Design", "Prototyping"],
   },
   {
     name: "Destinate",
@@ -275,7 +275,7 @@ const featuredDesignProjects: ProjectCard[] = [
     githubUrl: "https://github.com/jdc88/Destinate-Figma-Prototype",
     liveUrl: "https://www.figma.com/design/3xz5FZbThb325xpHGX1Jf6/490-Prototype?node-id=0-1&t=kbuS9kf9HT4g5BFK-1",
     liveLabel: "Figma Prototype",
-    techStack: ["Figma", "Interaction Design", "UI Systems"],
+    techStack: ["Figma", "User Flows", "Wireframes", "Prototype Testing"],
   },
 ];
 
@@ -283,7 +283,7 @@ const socialLinks = {
   github: "https://github.com/jdc88",
   linkedin: "https://www.linkedin.com/in/josephine-choi-linked-in/",
   resume:
-    "https://drive.google.com/file/d/1jPHSaPhjzCj7TR_xVBiCteZlsDS4HQu8/view?usp=sharing",
+    "https://drive.google.com/file/d/1KpAyb5iogcXSnK4v_pH4LpPbxR4pmnpP/view?usp=sharing",
 };
 
 /** Whole photo stays in frame at 1; above 1 zooms in (circle clips); below 1 shrinks with more empty band. */
