@@ -224,14 +224,14 @@ const featuredEngineeringProjects: ProjectCard[] = [
       "Tone.js",
     ],
   },
-  // {
-  //   name: "Nuri",
-  //   description:
-  //     "Skincare shopping with **ingredient lists** users can control, **search and barcode scan**, and **bookmarks in Core Data**. **UPCitemdb** and a growing ingredient set.",
-  //   imageUrl: "/Nuridemo.png",
-  //   githubUrl: "https://github.com/jdc88/Nuri",
-  //   techStack: ["Swift / UIKit", "Core Data", "Xcode", "UPCitemdb API", "GitHub"],
-  // },
+  {
+    name: "Nuri",
+    description:
+      "**Skincare app** that recommends **products and routines** for the user's **skin type**, highlighting **ingredients** that supports their profile so they choose formulas that fit",
+    imageUrl: "/Nuridemo.png",
+    githubUrl: "https://github.com/jdc88/Nuri",
+    techStack: ["Swift / UIKit", "Core Data", "Xcode", "UPCitemdb API", "GitHub"],
+  },
   
   // {
   //   name: "Coin-Constrained Path Finder",

@@ -141,7 +141,7 @@ const RULES: { test: (s: string) => boolean; reply: string }[] = [
       (s.includes("skincare") && (s.includes("app") || s.includes("swift"))) ||
       (s.includes("barcode") && s.includes("ingredient")),
     reply:
-      "Josephine also works on Nuri, a skincare shopping concept with ingredient lists, search, barcode scan, and Core Data bookmarks built with Swift, UIKit, and UPCitemdb. It is listed on the full projects gallery page even when it is not shown on the home carousel. Check the projects page for details.",
+      "Josephine also built Nuri, a skincare app that recommends products and routines based on skin type and ingredient fit for the user. It includes search, barcode scan, and Core Data bookmarks with Swift, UIKit, and UPCitemdb. Check the projects page for details.",
   },
   {
     test: (s) => s.includes("nasa") || s.includes("l'space") || s.includes("lspace") || s.includes("cdh engineer"),

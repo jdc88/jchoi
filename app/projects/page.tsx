@@ -21,7 +21,7 @@ const allProjects: ProjectCard[] = [
   {
     name: "Nuri2",
     description:
-      "Skincare shopping with **ingredient lists** users can control, **search and barcode scan**, and **bookmarks in Core Data**. **UPCitemdb** and a growing ingredient set.",
+      "**Skincare app** that recommends **products and routines** for your **skin type**, highlighting **ingredients** that support your profile so you choose formulas that fit—not one-size-fits-all picks. **Search**, **barcode scan**, and saved lists in **Core Data** powered by **UPCitemdb**.",
     imageUrl: "/Nuridemo.png",
     githubUrl: "https://github.com/jdc88/Nuri",
     // liveUrl: "https://example.com/project-4",
