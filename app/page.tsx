@@ -283,7 +283,7 @@ const socialLinks = {
   github: "https://github.com/jdc88",
   linkedin: "https://www.linkedin.com/in/josephine-choi-linked-in/",
   resume:
-    "https://drive.google.com/file/d/1KpAyb5iogcXSnK4v_pH4LpPbxR4pmnpP/view?usp=sharing",
+    "https://drive.google.com/file/d/1zg0EgrE4i7TLclVqCrT_035FinyuEx-i/view?usp=sharing",
 };
 
 /** Whole photo stays in frame at 1; above 1 zooms in (circle clips); below 1 shrinks with more empty band. */
