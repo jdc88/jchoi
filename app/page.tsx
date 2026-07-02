@@ -968,6 +968,9 @@ export default function Home() {
         <div className="font-montserrat mt-2 text-xs text-white/60">
           © 2026 Josephine Choi ✦ All rights reserved.
         </div>
+        <div className="font-montserrat mt-1 text-[11px] text-white/45">
+          Original portfolio design and content by Josephine Choi.
+        </div>
       </footer>
     </div>
   );
