@@ -142,6 +142,19 @@ const experiences: Experience[] = [
 /** Engineering projects shown on the home page. */
 const featuredEngineeringProjects: ProjectCard[] = [
   {
+    name: "Sage Clinincal Agent",
+    eventLine: "Google x Kaggle ✦ 5-Day AI Agents Intensive Course",
+    description:
+      "**Multi-agent orchestration** for **scribing**, **prior authorization**, and **billing** to **automate clinical workflows** while keeping physicians focused on patient care",
+    imageUrl: "/Sage.png",
+    githubUrl: "https://github.com/jdc88/Sage",
+    liveUrl: "https://kaggle.com/competitions/vibecoding-agents-capstone-project/writeups/new-writeup-1782969917816",
+    liveLabel: "Kaggle Writeup",
+    figmaUrl: "https://sage-clinical-health.vercel.app/",
+    figmaLabel: "Live Website",
+    techStack: ["React", "Vite", "Tailwind CSS", "FastAPI", "Python", "Google ADK", "MCP", "Multi-Agent Systems", "Vercel"],
+  },
+  {
     name: "Smart Recipe Generator",
     eventLine: "✦ Built supervised learning & recipe ranking pipeline ✦",
     description:
