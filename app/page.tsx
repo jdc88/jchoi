@@ -86,7 +86,7 @@ const experiences: Experience[] = [
     role: "Supplemental Instruction (SI) Leader ✦ Calculus I and II",
     company: "California State University, Fullerton",
     location: "Fullerton, CA",
-    duration: "Fall 2023 - Present",
+    duration: "Fall 2023 - Spring 2026",
     logoUrl: "/iloveSIlogo.png",
     logoScale: 0.9,
     logoPosition: "50% 50%",
@@ -524,7 +524,7 @@ export default function Home() {
             </span>
           </div>
           <p className="font-montserrat mt-4 text-center text-[15px] leading-snug font-semibold md:text-left md:text-[19px]">
-            CS @ CSUF  .✦ ݁˖  MS @ Georgia Tech
+            MS @ Georgia Tech .✦ ݁˖CS @ CSUF
           </p>
           <p className="font-montserrat mt-2 text-center text-[12px] leading-relaxed text-[#aadaff] md:text-left md:text-[14px]">
             I enjoy turning complex ideas into structured, functional systems that balance technical depth with thoughtful design, creating solutions that are both impactful and visually refined.          </p>
