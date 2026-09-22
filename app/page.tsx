@@ -520,7 +520,7 @@ export default function Home() {
           <div className="status-pulse-bar mt-3 inline-flex max-w-full">
             <span className="status-pulse-dot" aria-hidden />
             <span className="font-montserrat text-[12px] font-medium md:text-[13px]">
-              Actively seeking opportunities in AI/ML and SWE
+              Actively seeking opportunities to grow
             </span>
           </div>
           <p className="font-montserrat mt-4 text-center text-[15px] leading-snug font-semibold md:text-left md:text-[19px]">
